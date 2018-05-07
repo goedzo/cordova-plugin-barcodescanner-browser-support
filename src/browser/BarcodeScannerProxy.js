@@ -1,5 +1,5 @@
 function startScan(deviceId, videoOutputElementId, success, error) {
-    const library = require("@tjieco/library");
+    const library = require("@tjieco/library/esm5/index.js");
     const codeReader = library.BrowserBarcodeReader();
     console.log(codeReader);
     const devices = codeReader.getVideoInputDevices();
