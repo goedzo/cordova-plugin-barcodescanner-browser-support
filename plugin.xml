@@ -83,6 +83,9 @@
     <js-module src="src/browser/BarcodeScannerProxy.js" name="BarcodeScannerProxy">
       <runs/>
     </js-module>
+      <js-module src="src/browser/library.min.js" name="Library">
+          <runs/>
+      </js-module>
   </platform>
   <platform name="blackberry10">
     <source-file src="src/blackberry10/index.js" target-dir="BarcodeScanner"/>
