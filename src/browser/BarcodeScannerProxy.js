@@ -1,3 +1,5 @@
+import {Library} from "library.min.js";
+
 function startScan(deviceId, videoOutputElementId, success, error) {
     var codeReader = new Library.BrowserBarcodeReader();
     console.log(codeReader);
