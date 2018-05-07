@@ -4,19 +4,20 @@ function startScan(deviceId, videoOutputElementId, success, error) {
     console.log(codeReader);
     const devices = codeReader.getVideoInputDevices();
 
-    codeReader.decodeFromInputVideoDevice(devices[deviceId], videoOutputElementId).then((res) => {
+    codeReader.decodeFromInputVideoDevice(devices[deviceId], videoOutputElementId).then(function (res) {
         console.log(res);
-        let result = {
+        var result = {
             text: res.getText(),
             format: res.getBarcodeFormat(),
             cancelled: false
         };
         success(result);
-    }).catch((err) => {
+    }).catch(function (err) {
         console.error(err);
         error("Barcode could not be decoded");
     });
-    console.log('Started continous decode from camera with id' + deviceId)
+    console.log('Started continous decode from camera with id' + deviceId);
+
 /*    document.getElementById('resetButton').addEventListener('click', () => {
         document.getElementById('result').textContent = '';
     codeReader.reset();
@@ -27,16 +28,28 @@ function startScan(deviceId, videoOutputElementId, success, error) {
 }
 
 function scan(success, error) {
-    var code = window.prompt("Enter barcode value (empty value will fire the error handler):");
-    if(code) {
-        var result = {
-            text:code,
-            format:"Fake",
-            cancelled:false
-        };
-        success(result);
-    } else {
-        error("No barcode");
+    var videoElement = document.getElementById("video");
+    if(videoElement){
+        devideId = document.getElementById("device");
+        if (devideId) {
+            startScan(devideId, videoElement, success, error);
+        }
+        else {
+            startScan(0, videoElement, success, error);
+        }
+    }
+    else {
+        var code = window.prompt("Enter barcode value (empty value will fire the error handler):");
+        if (code) {
+            var result = {
+                text: code,
+                format: "Fake",
+                cancelled: false
+            };
+            success(result);
+        } else {
+            error("No barcode");
+        }
     }
 }
 
