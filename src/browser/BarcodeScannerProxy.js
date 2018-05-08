@@ -1,8 +1,7 @@
 
 
 function startScan(deviceId, videoOutputElementId, success, error) {
-    var library = require('./library.min');
-    var codeReader = new library.Library.BrowserBarcodeReader();
+    var codeReader = Library.BrowserBarcodeReader();
     console.log(codeReader);
     var devices = codeReader.getVideoInputDevices();
 

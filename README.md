@@ -9,6 +9,9 @@ Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plug
 
 ## Installation
 
+DO NOT INSTALL THIS PLUGIN. IT DOES NOT YET WORK.
+CURRENTLY IN THE PROCESS OF GETTING A WORKING VERSION AVAILABLE.
+PLEASE IGNORE ALL INFORMATION BELOW.
 
 This requires phonegap 7.1.0+ ( current stable v8.0.0 )
 

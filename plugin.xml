@@ -84,7 +84,6 @@
       <runs/>
     </js-module>
       <js-module src="src/browser/library.min.js" name="Library">
-          <runs/>
       </js-module>
   </platform>
   <platform name="blackberry10">
