@@ -1,4 +1,4 @@
-# PhoneGap Plugin BarcodeScanner
+# PhoneGap Plugin BarcodeScanner, now with ACTUAL browser support
 ================================
 
 [![Build Status](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner.svg)](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner)
