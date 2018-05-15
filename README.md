@@ -7,11 +7,13 @@ Cross-platform BarcodeScanner for Cordova / PhoneGap.
 
 Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html), so that it works with [Plugman](https://github.com/apache/cordova-plugman).
 
-## Installation
+UPDATE: THIS IS THE FIRST WORKING VERSION OF THE BROWSER SUPPORT. PLEASE SEE _Browser usage_ FOR MORE DETAILS.
 
-DO NOT INSTALL THIS PLUGIN. IT DOES NOT YET WORK.
-CURRENTLY IN THE PROCESS OF GETTING A WORKING VERSION AVAILABLE.
-PLEASE IGNORE ALL INFORMATION BELOW.
+It's wonky, only supports QR, ITF, and Code128 and only detects a barcode when you fill the entire width of the screen with the barcode. But it works, and it's better than nothing.
+Please note any issues or improvements you find on github!
+
+
+## Installation
 
 This requires phonegap 7.1.0+ ( current stable v8.0.0 )
 
@@ -81,6 +83,8 @@ The following barcode types are currently supported:
 | MSI           |    ✖    |  ✖  |     ✔    |   ✖   |
 | AZTEC         |    ✖    |  ✖  |     ✔    |   ✖   |
 
+More browser barcode support will be added with future updates of available ports.
+
 `success` and `fail` are callback functions. Success is passed an object with data, type and cancelled properties. Data is the text representation of the barcode data, type is the type of barcode detected and cancelled is whether or not the user cancelled the scan.
 
 A full example could be:
@@ -115,13 +119,29 @@ A full example could be:
 
 This fork uses the browser functionalities to open the user media, allowing the camera to be used.
 The javascript code to decode a barcode is a fork of: https://github.com/zxing-js/library
-This is currently still in development, so in order to read ITF (i2of5) barcodes, this fork was created: https://github.com/Tjieco/library
-This means that the plugin now has another dependency.
 
-This fork is currently still a work in progress :)
+The "scan" functionality to enter the barcode manually still works. This ensures that existing applications do not break with the addition of this feature.
+However, you can add a video element to your page. The plugin will look for a HTML element with the id "barcodeScanStream".
+If the plugin detects the element, it will open the user media and place the camera stream inside the video element.
 
-The "scan" functionality to enter the barcode manually still works.
-However, you can also call "startscan" to open a camera prompt. This will call "scan" with the found number.
+The default camera will be the back camera. This can be changed using an html element with the id "barcodeScanDevice".
+Defaultly taking the back camera, or the remaining camera if that does not exist.
+
+```
+An example could be:
+
+        <div class="video">
+            <video id="barcodeScanStream"></video>
+        </div>
+
+        <div class="inputControls">
+            <div id="deviceready">
+                <button onclick="scan()" id="scanButton">Scan barcode</button>
+                <!-- 0 is the front camera, 1 is the back camera -->
+                <input type="text" id="barcodeScanDevice" placeholder="1">
+            </div>
+        </div>
+```
 
 
 ## Encoding a Barcode ##

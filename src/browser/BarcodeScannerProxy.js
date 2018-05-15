@@ -1,42 +1,47 @@
-
-
 function startScan(deviceId, videoOutputElementId, success, error) {
-    var codeReader = Library.BrowserBarcodeReader();
+    var library = cordova.require("phonegap-plugin-barcodescanner.Library");
+    var codeReader = new library.BrowserBarcodeReader();
     console.log(codeReader);
-    var devices = codeReader.getVideoInputDevices();
+    codeReader.getVideoInputDevices().then((videoInputDevices) => {
 
-    codeReader.decodeFromInputVideoDevice(devices[deviceId], videoOutputElementId).then(function (res) {
-        console.log(res);
-        var result = {
-            text: res.getText(),
-            format: res.getBarcodeFormat(),
-            cancelled: false
-        };
-        success(result);
-    }).catch(function (err) {
-        console.error(err);
-        error("Barcode could not be decoded");
+        console.log(videoInputDevices);
+        if(!videoInputDevices[deviceId]) {
+            //Defaulting to 0 if device not found
+            deviceId = 0;
+        }
+        codeReader.decodeFromInputVideoDevice(videoInputDevices[deviceId].deviceId, videoOutputElementId).then(function (res) {
+            console.log(res);
+            var result = {
+                text: res.getText(),
+                format: res.getBarcodeFormat(),
+                cancelled: false
+            };
+            success(result);
+        }).catch(function (err) {
+            console.log(err);
+            error(err);
+        });
+        console.log('Started continous decode from camera with id ' + deviceId);
+
+        if(document.getElementById('resetButton')) {
+            document.getElementById('resetButton').addEventListener('click', () => {
+                codeReader.reset();
+            })
+        }
+    }).catch((err) => {
+        error(err);
     });
-    console.log('Started continous decode from camera with id' + deviceId);
-
-/*    document.getElementById('resetButton').addEventListener('click', () => {
-        document.getElementById('result').textContent = '';
-    codeReader.reset();
-    })
-    .catch((err) => {
-          error(err);
-    })*/
 }
 
 function scan(success, error) {
-    var videoElement = document.getElementById("video");
+    var videoElement = document.getElementById("barcodeScanStream");
     if(videoElement){
-        devideId = document.getElementById("device");
-        if (devideId) {
-            startScan(devideId, videoElement, success, error);
+        deviceId = document.getElementById("barcodeScanDevice");
+        if (deviceId) {
+            startScan(deviceId, videoElement, success, error);
         }
         else {
-            startScan(0, videoElement, success, error);
+            startScan(1, videoElement, success, error);
         }
     }
     else {
