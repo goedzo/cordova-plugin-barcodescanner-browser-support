@@ -9,7 +9,7 @@ Follows the [Cordova Plugin spec](https://cordova.apache.org/docs/en/latest/plug
 
 UPDATE: THIS IS THE FIRST WORKING VERSION OF THE BROWSER SUPPORT. PLEASE SEE _Browser usage_ FOR MORE DETAILS.
 
-It's wonky, only supports QR, ITF, and Code128 and only detects a barcode when you fill the entire width of the screen with the barcode. But it works, and it's better than nothing.
+It only supports QR, ITF, and Code128 and only detects a barcode when you fill the entire width of the screen with the barcode. But it works, and it's better than nothing.
 Please note any issues or improvements you find on github!
 
 
@@ -118,7 +118,7 @@ A full example could be:
 ## Browser usage ##
 
 This fork uses the browser functionalities to open the user media, allowing the camera to be used.
-The javascript code to decode a barcode is a fork of: https://github.com/zxing-js/library
+The javascript code to decode a barcode comes from: https://github.com/zxing-js/library
 
 The "scan" functionality to enter the barcode manually still works. This ensures that existing applications do not break with the addition of this feature.
 However, you can add a video element to your page. The plugin will look for a HTML element with the id "barcodeScanStream".
@@ -165,6 +165,12 @@ A full example could be:
           }
         );
 ```
+
+## Browser quirks ##
+
+Currently, a barcode only gets detected when it takes up almost the entire horizontal space.
+There's also an issue where the camera does not focus properly. It takes a while for it to adjust.
+Since node modules with cordova browser works differently than cordova plugins, I could not manage to create a node dependency. The code to scan a barcode is thus minified and copied into the plugin. Unfortunately, I could not forsee a better solution.
 
 ## iOS quirks ##
 
