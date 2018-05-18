@@ -17,6 +17,7 @@ function startScan(deviceId, videoOutputElementId, success, error) {
                     format: res.getBarcodeFormat(),
                     cancelled: false
                 };
+                stream.getTracks()[0].stop();
                 success(result);
             }).catch(function (err) {
                 error(err);
