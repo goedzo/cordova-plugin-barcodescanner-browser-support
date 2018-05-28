@@ -2,7 +2,7 @@ function startScan(deviceId, videoOutputElementId, success, error) {
     var library = cordova.require("phonegap-plugin-barcodescanner.Library");
     var codeReader = new library.BrowserBarcodeReader();
     codeReader.getVideoInputDevices().then((videoInputDevices) => {
-        if (videoInputDevices === null) {
+        if (videoInputDevices.length === 0) {
             console.log("no video input devices found");
             promptBarcode(success, error);
         }
@@ -17,6 +17,7 @@ function startScan(deviceId, videoOutputElementId, success, error) {
                     format: res.getBarcodeFormat(),
                     cancelled: false
                 };
+                stream.getTracks()[0].stop();
                 success(result);
             }).catch(function (err) {
                 error(err);
@@ -68,7 +69,6 @@ function encode(type, data, success, errorCallback) {
 }
 
 module.exports = {
-    startScan: startScan,
     scan: scan,
     encode: encode
 };
