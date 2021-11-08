@@ -40,7 +40,7 @@ function scan(success, error) {
     if(videoElement){
         deviceId = document.getElementById("barcodeScanDevice");
         if (deviceId) {
-            startScan(deviceId, videoElement, success, error);
+            startScan(deviceId.value, videoElement, success, error);
         }
         else {
             startScan(1, videoElement, success, error);
